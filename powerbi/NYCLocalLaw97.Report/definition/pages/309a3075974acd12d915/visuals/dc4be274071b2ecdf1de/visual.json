@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "dc4be274071b2ecdf1de",
   "position": {
     "x": 980,
@@ -28,7 +28,8 @@
               },
               "queryRef": "Properties.borough",
               "nativeQueryRef": "borough",
-              "displayName": "Borough"
+              "displayName": "Borough",
+              "active": true
             }
           ]
         },
@@ -67,8 +68,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "drillFilterOtherVisuals": true,

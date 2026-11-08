@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
   "name": "45d192973333d3e2abdb",
   "position": {
     "x": 980,
@@ -28,7 +28,8 @@
               },
               "queryRef": "Properties.check",
               "nativeQueryRef": "check",
-              "displayName": "Data check"
+              "displayName": "Data check",
+              "active": true
             }
           ]
         },
@@ -67,8 +68,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "drillFilterOtherVisuals": true,
