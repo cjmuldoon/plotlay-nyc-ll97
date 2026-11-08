@@ -23,11 +23,11 @@
                       "Entity": "Properties"
                     }
                   },
-                  "Property": "primary_property_type"
+                  "Property": "primary_property_type_short"
                 }
               },
-              "queryRef": "Properties.primary_property_type",
-              "nativeQueryRef": "primary_property_type",
+              "queryRef": "Properties.primary_property_type_short",
+              "nativeQueryRef": "primary_property_type_short",
               "displayName": "Main use",
               "active": true
             }
@@ -249,5 +249,11 @@
         }
       }
     ]
-  }
+  },
+  "annotations": [
+    {
+      "name": "plotlay.categoryLabels",
+      "value": "[\"Community Center\", \"Outpatient Rehabilitation\", \"Personal Services\"]"
+    }
+  ]
 }
