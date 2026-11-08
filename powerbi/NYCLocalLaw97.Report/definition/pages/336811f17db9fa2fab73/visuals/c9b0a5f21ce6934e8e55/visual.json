@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Properties.property_name",
-              "nativeQueryRef": "property_name"
+              "nativeQueryRef": "property_name",
+              "displayName": "Property"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Properties.borough",
-              "nativeQueryRef": "borough"
+              "nativeQueryRef": "borough",
+              "displayName": "Borough"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "Properties.primary_property_type",
-              "nativeQueryRef": "primary_property_type"
+              "nativeQueryRef": "primary_property_type",
+              "displayName": "Main use"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "Properties.gfa_uses",
-              "nativeQueryRef": "gfa_uses"
+              "nativeQueryRef": "gfa_uses",
+              "displayName": "Floor area (sq ft)"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "Properties.emissions_2024",
-              "nativeQueryRef": "emissions_2024"
+              "nativeQueryRef": "emissions_2024",
+              "displayName": "Emissions 2024-29 (t)"
             },
             {
               "field": {
@@ -97,7 +102,8 @@
                 }
               },
               "queryRef": "Properties.limit_2024",
-              "nativeQueryRef": "limit_2024"
+              "nativeQueryRef": "limit_2024",
+              "displayName": "Limit 2024-29 (t)"
             },
             {
               "field": {
@@ -111,7 +117,8 @@
                 }
               },
               "queryRef": "Properties.penalty_2024",
-              "nativeQueryRef": "penalty_2024"
+              "nativeQueryRef": "penalty_2024",
+              "displayName": "Penalty 2024-29"
             },
             {
               "field": {
@@ -125,7 +132,8 @@
                 }
               },
               "queryRef": "Properties.emissions_2030",
-              "nativeQueryRef": "emissions_2030"
+              "nativeQueryRef": "emissions_2030",
+              "displayName": "Emissions 2030-34 (t)"
             },
             {
               "field": {
@@ -139,7 +147,8 @@
                 }
               },
               "queryRef": "Properties.limit_2030",
-              "nativeQueryRef": "limit_2030"
+              "nativeQueryRef": "limit_2030",
+              "displayName": "Limit 2030-34 (t)"
             },
             {
               "field": {
@@ -153,10 +162,29 @@
                 }
               },
               "queryRef": "Properties.penalty_2030",
-              "nativeQueryRef": "penalty_2030"
+              "nativeQueryRef": "penalty_2030",
+              "displayName": "Penalty 2030-34"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Properties"
+                  }
+                },
+                "Property": "penalty_2030"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
@@ -175,6 +203,183 @@
               "expr": {
                 "Literal": {
                   "Value": "'Properties in the totals'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "455.3D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.property_name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "166.5D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.borough"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "348.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.primary_property_type"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "123.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.gfa_uses"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.emissions_2024"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.limit_2024"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.penalty_2024"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.7D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.emissions_2030"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.9D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.limit_2030"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.4D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Properties.penalty_2030"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

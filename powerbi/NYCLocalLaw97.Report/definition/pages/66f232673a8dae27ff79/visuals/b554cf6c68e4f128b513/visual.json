@@ -23,11 +23,12 @@
                       "Entity": "Properties"
                     }
                   },
-                  "Property": "property_name"
+                  "Property": "property_id"
                 }
               },
-              "queryRef": "Properties.property_name",
-              "nativeQueryRef": "property_name"
+              "queryRef": "Properties.property_id",
+              "nativeQueryRef": "property_id",
+              "displayName": "Property"
             }
           ]
         },
@@ -35,17 +36,23 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Properties"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Properties"
+                        }
+                      },
+                      "Property": "lat"
                     }
                   },
-                  "Property": "lat"
+                  "Function": 1
                 }
               },
-              "queryRef": "Properties.lat",
-              "nativeQueryRef": "lat"
+              "queryRef": "Avg(Properties.lat)",
+              "nativeQueryRef": "lat",
+              "displayName": "Latitude"
             }
           ]
         },
@@ -53,17 +60,23 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Properties"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Properties"
+                        }
+                      },
+                      "Property": "lng"
                     }
                   },
-                  "Property": "lng"
+                  "Function": 1
                 }
               },
-              "queryRef": "Properties.lng",
-              "nativeQueryRef": "lng"
+              "queryRef": "Avg(Properties.lng)",
+              "nativeQueryRef": "lng",
+              "displayName": "Longitude"
             }
           ]
         },
@@ -81,7 +94,52 @@
                 }
               },
               "queryRef": "Properties.Penalty a year",
-              "nativeQueryRef": "Penalty a year"
+              "nativeQueryRef": "Penalty a year",
+              "displayName": "Likely penalty a year"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Properties"
+                        }
+                      },
+                      "Property": "property_name"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Properties.property_name)",
+              "nativeQueryRef": "property_name",
+              "displayName": "Property"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Properties"
+                        }
+                      },
+                      "Property": "primary_property_type"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Properties.primary_property_type)",
+              "nativeQueryRef": "primary_property_type",
+              "displayName": "Main use"
             }
           ]
         }
@@ -103,6 +161,13 @@
               "expr": {
                 "Literal": {
                   "Value": "'Properties (bubble size: likely penalty a year)'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

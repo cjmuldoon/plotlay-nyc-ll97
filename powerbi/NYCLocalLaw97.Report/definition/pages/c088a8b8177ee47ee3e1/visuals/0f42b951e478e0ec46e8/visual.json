@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Properties.pathway",
-              "nativeQueryRef": "pathway"
+              "nativeQueryRef": "pathway",
+              "displayName": "Likely pathway"
             }
           ]
         },
@@ -45,10 +46,29 @@
                 }
               },
               "queryRef": "Properties.Penalty, every record",
-              "nativeQueryRef": "Penalty, every record"
+              "nativeQueryRef": "Penalty, every record",
+              "displayName": "Likely penalty a year, every record"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Properties"
+                  }
+                },
+                "Property": "Penalty, every record"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": false
       }
     },
     "drillFilterOtherVisuals": true,
@@ -67,6 +87,54 @@
               "expr": {
                 "Literal": {
                   "Value": "'Likely penalty a year by pathway, every record'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }

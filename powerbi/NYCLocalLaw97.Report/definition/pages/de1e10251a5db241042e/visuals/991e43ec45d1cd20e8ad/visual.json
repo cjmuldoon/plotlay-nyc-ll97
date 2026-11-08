@@ -3,10 +3,10 @@
   "name": "991e43ec45d1cd20e8ad",
   "position": {
     "x": 40,
-    "y": 24,
+    "y": 18,
     "z": 0,
-    "height": 64,
-    "width": 1100,
+    "height": 86,
+    "width": 1500,
     "tabOrder": 0
   },
   "visual": {
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Likely penalty a year by community district, on calendar 2024 energy use. Pick a period.",
+                    "value": "Likely penalty a year by community district, on calendar 2024 energy use, for the period picked (2024 to 2029 when none is).",
                     "textStyle": {
                       "fontSize": "11pt",
                       "color": "#5b6573"

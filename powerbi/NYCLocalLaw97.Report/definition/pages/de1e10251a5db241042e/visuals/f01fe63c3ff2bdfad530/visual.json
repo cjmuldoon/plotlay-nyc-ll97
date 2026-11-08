@@ -3,9 +3,9 @@
   "name": "f01fe63c3ff2bdfad530",
   "position": {
     "x": 1260,
-    "y": 270,
+    "y": 275,
     "z": 1,
-    "height": 140,
+    "height": 150,
     "width": 300,
     "tabOrder": 1
   },
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Properties.Share over",
-              "nativeQueryRef": "Share over"
+              "nativeQueryRef": "Share over",
+              "displayName": "Share over the limit"
             }
           ]
         }
@@ -49,6 +50,28 @@
               "expr": {
                 "Literal": {
                   "Value": "'Share over the limit'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

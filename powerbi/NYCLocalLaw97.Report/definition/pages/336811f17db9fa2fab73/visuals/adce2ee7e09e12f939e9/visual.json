@@ -3,10 +3,10 @@
   "name": "adce2ee7e09e12f939e9",
   "position": {
     "x": 40,
-    "y": 24,
+    "y": 18,
     "z": 0,
-    "height": 64,
-    "width": 1400,
+    "height": 86,
+    "width": 1500,
     "tabOrder": 0
   },
   "visual": {
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Every property in the totals with its emissions, limit and likely penalty. Sort by any column.",
+                    "value": "Every property in the totals with its emissions, limit and likely penalty in both periods, largest 2030 to 2034 penalty first. Sort by any column.",
                     "textStyle": {
                       "fontSize": "11pt",
                       "color": "#5b6573"

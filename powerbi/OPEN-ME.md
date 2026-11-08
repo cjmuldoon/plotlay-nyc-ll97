@@ -14,7 +14,22 @@
    - By default the data is read from the repo's public copy on GitHub (`DataFolder` is `https://raw.githubusercontent.com/cjmuldoon/plotlay-nyc-ll97/main/data/`). If Desktop asks how to connect, choose **Anonymous** and then **Connect**.
    - To read the files from disk instead, go to **Home, Transform data, Edit parameters** and set `DataFolder` to the full path of the repo's `data` folder, **ending with a backslash** (for example `\\Mac\Home\plotlay-nyc-ll97\data\`). Then select **OK** and **Apply changes**.
    - If Desktop warns about privacy levels, choose **Ignore privacy levels** (all the sources are public open data).
-3. After the refresh, check page 1. With no period picked the measures read 2024 to 2029: Properties over the limit should match the README's 2024 to 2029 figure. Pick **2030 to 2034** on the Period slicer: the likely penalty a year should match the README's 2030 to 2034 figure. If both match, everything is joined correctly.
+3. Check the numbers (below).
+
+## Check the numbers after Refresh
+
+After **Refresh**, on **Where the fines fall** with the Period slicer on **2024 to 2029** (as the report opens; it takes one period at a time):
+
+| Card | Should read |
+|---|---|
+| Properties over the limit | 1,830 |
+| Likely penalty a year | $58.57M ($58,573,596) |
+| Share over the limit | 8.4% |
+| Tonnes of CO2e over the limit | 218.6K (218,558) |
+
+Pick **2030 to 2034** and they change to 13,546, $532.83M, 62.3% and 1.99M. These are the README's figures (1,830 of 21,753, about $58.6 million; 13,546, about $532.8 million).
+
+The district chart starts with Manhattan 5 ($4.80M in 2024 to 2029).
 
 ## The model
 
@@ -23,22 +38,18 @@
 - **Period**: 2024 to 2029 and 2030 to 2034, for the slicer. The measures read the picked period's columns (2024 to 2029 when none is picked).
 - Measures: `Properties`, `Over the limit`, `Share over`, `Penalty a year`, `Tonnes over`, `Emissions`, `Limit`, `Penalty, every record`.
 
-## Two map settings Power BI asks for by hand
+## The two maps
 
-Power BI only keeps a custom map file and a reference layer once you have chosen them in Desktop, so do this once and save:
-
-- **Shape Map** (page 1). Select the map. In **Format visual, Visual, Map settings**, set the map type to **Custom map**, choose **Add map type**, and pick `..\data\geometry\community_districts.topojson`. Under **View map keys** the district codes (101, 102 ... 503) should match. If the Shape Map isn't in the Visualizations pane, turn it on in **Options, Preview features, Shape map visual**.
-- **Azure Maps** (Map of the buildings page). Your organisation's admin must allow it (tenant setting "Use Azure Maps visual"); a personal account has it on by default. To see Midtown's footprints, go to **Format visual, Reference layer**, set the data source to **File** and choose `..\data\geometry\midtown_buildings.geojson`, with join property `key`. Use the **Grayscale (light)** or **Blank** map style for screenshots. Don't publish satellite basemap screenshots.
+- **Shape Map** (page 1). The custom map, `data/geometry/community_districts.topojson`, is saved inside the report (`NYCLocalLaw97.Report/StaticResources/RegisteredResources/community_districts.topojson`, a copy that keeps only the district code), so the 59 districts draw on open, shaded by the likely penalty for the period picked. If the map shows the United States states instead (an older Desktop can ignore a saved map): select it, then **Format visual** (the paintbrush), **Visual**, **Map settings**, **Map type: Custom map**, **Add map type** (or **Browse**), and choose `..\data\geometry\community_districts.topojson`. Under **View map keys** the district codes (101, 102 ... 503) should be matched. If the Shape Map is not in the Visualizations pane at all, turn it on in **File, Options and settings, Options, Preview features, Shape map visual** and restart Desktop.
+- **Azure Maps** (Map of the buildings page). One point per property: Location is the property id, latitude and longitude are averaged, the bubble is the likely penalty, the name and main use are in the tooltip. Your organisation's admin must allow Azure Maps (tenant setting "Use Azure Maps visual"); a personal account has it on by default. For Midtown's footprints add the reference layer by hand (Power BI can't take it from a file in the project): **Format visual**, **Reference layer**, **Data source: File** (or **URL**), and choose `..\data\geometry\midtown_buildings.geojson`. Use the **Grayscale (light)** or **Blank** map style for screenshots. Don't publish satellite basemap screenshots.
 
 If a map visual comes up empty, drag the fields back:
 - Shape Map: Location `Districts[cd]`, Color saturation `[Penalty a year]`.
-- Azure Maps: Location `Properties[property_name]`, Latitude `Properties[lat]`, Longitude `Properties[lng]`, Size `[Penalty a year]`.
-
-Then save with **File, Save**.
+- Azure Maps: Location `Properties[property_id]`, Latitude `Properties[lat]` (Average), Longitude `Properties[lng]` (Average), Size `[Penalty a year]`, Tooltips `Properties[property_name]` (First).
 
 ## Save a .pbix too
 
-After the refresh and the map settings, use **File, Save as** with the type **Power BI file (\*.pbix)** to save `powerbi\NYCLocalLaw97.pbix`. It includes the data, so it opens without a refresh.
+After the refresh, use **File, Save as** with the type **Power BI file (\*.pbix)** to save `powerbi\NYCLocalLaw97.pbix`. It includes the data, so it opens without a refresh.
 
 ## Publish (only if you choose to)
 
@@ -52,7 +63,7 @@ Capture at 1920 × 1080 (Windows display scaling 100%), with the Plotlay theme. 
 |---|---|---|---|
 | 1 | Where the fines fall, 2030 to 2034 | Period 2030 to 2034 | still |
 | 2 | The same, 2024 to 2029 | Period 2024 to 2029 | still |
-| 3 | The period switching | Click between the two periods, about 1.5 s each | 5 s clip |
+| 3 | The period switching | Pick each period in the Period dropdown, about 1.5 s each | 5 s clip |
 | 4 | Kinds of building | Period 2030 to 2034 | still |
 | 5 | What is counted | Either period | still |
 | 6 | Map of the buildings | Azure Maps with the Midtown reference layer, grayscale | still |

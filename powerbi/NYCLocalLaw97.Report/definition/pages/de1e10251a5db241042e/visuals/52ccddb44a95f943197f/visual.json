@@ -27,11 +27,12 @@
                 }
               },
               "queryRef": "Districts.cd",
-              "nativeQueryRef": "cd"
+              "nativeQueryRef": "cd",
+              "displayName": "District code"
             }
           ]
         },
-        "Y": {
+        "Value": {
           "projections": [
             {
               "field": {
@@ -45,7 +46,47 @@
                 }
               },
               "queryRef": "Properties.Penalty a year",
-              "nativeQueryRef": "Penalty a year"
+              "nativeQueryRef": "Penalty a year",
+              "displayName": "Likely penalty a year"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Districts"
+                        }
+                      },
+                      "Property": "name"
+                    }
+                  },
+                  "Function": 3
+                }
+              },
+              "queryRef": "Min(Districts.name)",
+              "nativeQueryRef": "name",
+              "displayName": "Community district"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Properties"
+                    }
+                  },
+                  "Property": "Over the limit"
+                }
+              },
+              "queryRef": "Properties.Over the limit",
+              "nativeQueryRef": "Over the limit",
+              "displayName": "Properties over the limit"
             }
           ]
         }
@@ -66,7 +107,70 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Likely penalty a year (custom map: data/geometry/community_districts.topojson, key cd)'"
+                  "Value": "'Likely penalty a year by community district (darker: more)'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "shape": [
+        {
+          "properties": {
+            "datasourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'file_upload'"
+                }
+              }
+            },
+            "mapUrl": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "map": {
+              "geoJson": {
+                "type": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'packaged'"
+                    }
+                  }
+                },
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'community_districts.topojson'"
+                    }
+                  }
+                },
+                "content": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "community_districts.topojson"
+                    }
+                  }
+                }
+              }
+            },
+            "projectionEnum": {
+              "expr": {
+                "Literal": {
+                  "Value": "'mercator'"
                 }
               }
             }
