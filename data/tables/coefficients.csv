@@ -1,0 +1,11 @@
+ll84_column,unit,coefficient_2024_2029,coefficient_2030_2034,unit_out
+electricity_use_grid_purchase_1,kWh,0.000288962,0.000145,tCO2e per kWh
+natural_gas_use_kbtu,kBtu,5.311e-05,5.311e-05,tCO2e per kBtu
+fuel_oil_1_use_kbtu,kBtu,7.35e-05,7.35e-05,tCO2e per kBtu
+fuel_oil_2_use_kbtu,kBtu,7.421e-05,7.421e-05,tCO2e per kBtu
+fuel_oil_4_use_kbtu,kBtu,7.529e-05,7.529e-05,tCO2e per kBtu
+fuel_oil_5_6_use_kbtu,kBtu,7.647e-05,7.647e-05,tCO2e per kBtu
+diesel_2_use_kbtu,kBtu,7.421e-05,7.421e-05,tCO2e per kBtu
+propane_use_kbtu,kBtu,6.425e-05,6.425e-05,tCO2e per kBtu
+kerosene_use_kbtu,kBtu,7.769e-05,7.769e-05,tCO2e per kBtu
+district_steam_use_kbtu,kBtu,4.493e-05,4.32e-05,tCO2e per kBtu

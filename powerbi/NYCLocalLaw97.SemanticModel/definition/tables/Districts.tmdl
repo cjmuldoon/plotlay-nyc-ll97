@@ -1,0 +1,39 @@
+table Districts
+	lineageTag: 4b9fc0ff-41a2-ee89-63ec-c9ac50a67666
+
+	column cd
+		dataType: string
+		lineageTag: afaae96b-4c41-9b7d-0e28-bfe426333d40
+		summarizeBy: none
+		sourceColumn: cd
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: e6cd0521-ee8b-1f4f-8720-1af63758cb87
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column borough
+		dataType: string
+		lineageTag: 83d210c0-6e25-9d07-1628-4b3d62311093
+		summarizeBy: none
+		sourceColumn: borough
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Districts = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(GetFile("tables/community_districts.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"cd", "name", "borough"}),
+				    Typed = Table.TransformColumnTypes(Kept, {{"cd", type text}, {"name", type text}, {"borough", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

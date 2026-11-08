@@ -1,0 +1,78 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "0f42b951e478e0ec46e8",
+  "position": {
+    "x": 40,
+    "y": 110,
+    "z": 1,
+    "height": 900,
+    "width": 900,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Properties"
+                    }
+                  },
+                  "Property": "pathway"
+                }
+              },
+              "queryRef": "Properties.pathway",
+              "nativeQueryRef": "pathway"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Properties"
+                    }
+                  },
+                  "Property": "Penalty, every record"
+                }
+              },
+              "queryRef": "Properties.Penalty, every record",
+              "nativeQueryRef": "Penalty, every record"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Likely penalty a year by pathway, every record'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

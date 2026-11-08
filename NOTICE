@@ -1,0 +1,66 @@
+Which New York City buildings face Local Law 97 fines? Each benchmarked building's emissions against its limit.
+Copyright 2026 Craig Muldoon. Made with Plotlay (https://www.getplotlay.com).
+
+This repository contains code, data we made, and data from the sources below.
+
+CODE
+  The notebook and the Power BI project (its Power Query, DAX and report files) are licensed under the MIT licence
+  (LICENSE).
+
+DATA WE MADE
+  The tables in data/tables/ (each property's emissions, limit and likely penalty for 2024 to 2029 and 2030 to 2034,
+  the pathway and data check flags, the records left out and why, the factors and coefficients used), the community
+  district and Midtown building shapes in data/geometry/ and the visuals are licensed under Creative Commons
+  Attribution 4.0 International (LICENSE-DATA). Please credit: "Local Law 97 estimates: Plotlay (getplotlay.com), from
+  NYC Open Data". They are made from the sources below.
+
+UPSTREAM SOURCES
+
+  NYC Open Data, opendata.cityofnewyork.us. The New York City Charter and Administrative Code (Chapter 5 of Title 23,
+  the Open Data Law) say:
+    "Such public data sets shall be made available without any registration requirement, license requirement or
+    restrictions on their use provided that the department may require a third party providing to the public any
+    public data set, or application utilizing such data set, to explicitly identify the source and version of the
+    public data set, and a description of any modifications made to such public data set." (Admin Code 23-502 (d))
+    "Public data sets made available on the web portal are provided for informational purposes. The city does not
+    warranty the completeness, accuracy, content or fitness for any particular purpose or use of any public data set
+    made available on the web portal, nor are any such warranties to be implied or inferred with respect to the public
+    data sets furnished therein." (Admin Code 23-504 (a))
+  Sources, versions and the changes made:
+    - NYC Building Energy and Water Data Disclosure for Local Law 84 2023 to Present (Data for Calendar Year
+      2022-Present), Department of Buildings, dataset 5zyy-y8am, records with report_year 2024 (calendar year 2024),
+      as published on 25 November 2025.
+      https://data.cityofnewyork.us/d/5zyy-y8am
+      Changes: child records whose parent record is present left out; records not existing or unoccupied, with no
+      floor area by use, no energy, or site energy per square foot under 5 or over 1,000 kBtu left out; emissions,
+      limits and penalties worked out as described in README.md; flags added.
+    - Primary Land Use Tax Lot Output (PLUTO), Department of City Planning, dataset 64uk-42ks, version 26v2.
+      https://data.cityofnewyork.us/d/64uk-42ks
+      Used for each property's community district, position (latitude and longitude), owner type and owner name
+      (to flag buildings likely on another compliance pathway). Owner names are not republished.
+    - Community Districts, Department of City Planning, dataset 5crt-au7u.
+      https://data.cityofnewyork.us/d/5crt-au7u
+      Changes: the 59 community districts kept; joint interest areas (parks, airports) left out.
+    - BUILDING (Building Footprints), Office of Technology and Innovation, dataset 5zhs-2jue.
+      https://data.cityofnewyork.us/d/5zhs-2jue
+      Changes: footprints in Manhattan Community District 5 matched to benchmarked properties by BIN, then by lot;
+      roof height converted from feet to metres.
+    Nothing here implies endorsement by the City of New York or any of its agencies.
+
+  The rules (public law, quoted, not licensed): Local Law 97 of 2019, NYC Administrative Code Title 28 Article 320
+  (28-320.3.1.1 greenhouse gas coefficients for 2024 to 2029; 28-320.6 penalties), and the Department of Buildings
+  rule 1 RCNY 103-14 (emissions factors by Energy Star Portfolio Manager property type, (c)(3)(i) and (iii);
+  coefficients for 2030 to 2034, (d)(3)). The penalty of $268 per tonne over the limit and the 2024 to 2029
+  coefficients are as stated by the Department of Buildings in "Local Law 97: Calculating Building Emissions &
+  Emission Limits" (26 June 2024).
+
+  Base map in the Plotlay project and the app screenshots
+    USGS The National Map: US Topo (public domain).
+
+NOT INCLUDED
+  Nothing in this repository is derived from OpenStreetMap. No imagery was traced, and no Google, Nearmap, Esri or
+  Mapbox imagery was used. The Department of Buildings' Covered Buildings List was not used.
+
+THIRD-PARTY SOFTWARE
+  The notebook uses pandas, GeoPandas, Shapely, pyproj and Matplotlib (installed from requirements.txt, each under its
+  own licence). Fonts in the visuals: IBM Plex Sans and IBM Plex Sans Condensed, SIL Open Font License 1.1.

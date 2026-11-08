@@ -1,0 +1,20 @@
+table Period
+	lineageTag: 1901606e-a069-a83d-c7be-ea17881ef95a
+
+	column period
+		dataType: string
+		lineageTag: 27c6fdd8-aee8-97c5-ef4b-2a08ddeb1d49
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Period = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromColumns({{"2024 to 2029", "2030 to 2034"}}, type table [period = text])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

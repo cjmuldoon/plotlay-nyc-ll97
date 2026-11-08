@@ -1,0 +1,242 @@
+table Properties
+	lineageTag: 9fc2d28c-05ed-9eb1-d75b-a4465abf15a9
+
+	/// Benchmarked properties in the totals: standard pathway (Article 320), data checks passed
+	measure Properties = CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE () )
+		formatString: #,0
+		lineageTag: 4149ed25-690a-f170-64c2-106ac396365c
+
+	/// Properties whose emissions are over their limit in the period picked
+	measure 'Over the limit' =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE (), IF ( p = "2030 to 2034", Properties[over_2030] > 0, Properties[over_2024] > 0 ) )
+		formatString: #,0
+		lineageTag: 5d55078e-cb46-66af-7b3f-f19e40a8fd05
+
+	measure 'Share over' = DIVIDE ( [Over the limit], [Properties] )
+		formatString: 0.0%
+		lineageTag: 618b6fac-e553-db5e-c440-ac7b79b92391
+
+	/// Likely penalty a year: tonnes over the limit x $268 (Admin Code 28-320.6), on calendar 2024 energy use
+	measure 'Penalty a year' =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[penalty_2030] ), SUM ( Properties[penalty_2024] ) ), Properties[in_totals] = TRUE () )
+		formatString: $#,0
+		lineageTag: 8211d3da-9a79-2c10-5c0c-7dfd0abb5c86
+
+	/// tCO2e over the limit, added up
+	measure 'Tonnes over' =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[over_2030] ), SUM ( Properties[over_2024] ) ), Properties[in_totals] = TRUE () )
+		formatString: #,0
+		lineageTag: 1d10ad86-8564-9ae7-60cb-c4de7cc7da2e
+
+	/// tCO2e as Local Law 97 counts them, with the period's coefficients
+	measure Emissions =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[emissions_2030] ), SUM ( Properties[emissions_2024] ) ), Properties[in_totals] = TRUE () )
+		formatString: #,0
+		lineageTag: 96efe3e0-841d-b2cc-f929-da42233f3070
+
+	/// tCO2e: floor area of each use x the rule's factor
+	measure Limit =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[limit_2030] ), SUM ( Properties[limit_2024] ) ), Properties[in_totals] = TRUE () )
+		formatString: #,0
+		lineageTag: 8e7af4ac-bae2-cedf-3ab1-33f9f50fdc25
+
+	/// Every kept record, whatever its pathway or data check
+	measure 'Penalty, every record' =
+			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
+			RETURN IF ( p = "2030 to 2034", SUM ( Properties[penalty_2030] ), SUM ( Properties[penalty_2024] ) )
+		formatString: $#,0
+		displayFolder: Sensitivity
+		lineageTag: 9941a306-3906-2ce5-9a84-22654ad7658f
+
+	measure 'Period title' = "Local Law 97, " & SELECTEDVALUE ( Period[period], "2024 to 2029" )
+		lineageTag: f58723f9-3b3a-e20d-2c01-0c2f4842fe9d
+
+	column property_id
+		dataType: string
+		lineageTag: f3a49c87-69b9-4e98-12ab-528e1e833176
+		summarizeBy: none
+		sourceColumn: property_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_name
+		dataType: string
+		lineageTag: 027ad366-c51a-8ddc-7a2f-1e04985d8203
+		summarizeBy: none
+		sourceColumn: property_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column borough
+		dataType: string
+		lineageTag: a747eb8d-5bf0-ac2b-0961-206e0628bcb9
+		summarizeBy: none
+		sourceColumn: borough
+
+		annotation SummarizationSetBy = Automatic
+
+	column cd
+		dataType: string
+		lineageTag: 4fdd9f7f-9c00-c406-8327-1ff4bc82bc86
+		summarizeBy: none
+		sourceColumn: cd
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_property_type
+		dataType: string
+		lineageTag: 067ceed9-6582-cdb7-2053-b2faea96ade4
+		summarizeBy: none
+		sourceColumn: primary_property_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column gfa_uses
+		dataType: double
+		formatString: #,0
+		lineageTag: 8b6bf972-32a4-74ce-ec29-b983775880bb
+		summarizeBy: none
+		sourceColumn: gfa_uses
+
+		annotation SummarizationSetBy = Automatic
+
+	column site_eui
+		dataType: double
+		formatString: 0.0
+		lineageTag: 8e299023-067e-317a-6214-353cb1bf0db3
+		summarizeBy: none
+		sourceColumn: site_eui
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: double
+		lineageTag: 1783549f-fe9b-14f9-c3a4-0f1a3ebccb39
+		summarizeBy: none
+		sourceColumn: lat
+		dataCategory: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column lng
+		dataType: double
+		lineageTag: 88748e48-dea1-7830-db59-6c7fa7777720
+		summarizeBy: none
+		sourceColumn: lng
+		dataCategory: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column emissions_2024
+		dataType: double
+		formatString: #,0
+		lineageTag: 8dc0c3f0-3903-dc2d-b7f8-c566c855bc3a
+		summarizeBy: none
+		sourceColumn: emissions_2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column limit_2024
+		dataType: double
+		formatString: #,0
+		lineageTag: e45d0057-17a4-5ea2-f5a1-7a12485ba082
+		summarizeBy: none
+		sourceColumn: limit_2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column over_2024
+		dataType: double
+		formatString: #,0
+		lineageTag: 0da90dde-fd28-6f51-e64d-f7b520ca1904
+		summarizeBy: none
+		sourceColumn: over_2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column penalty_2024
+		dataType: double
+		formatString: $#,0
+		lineageTag: fc334d9a-1aa0-5c8b-0256-ba8aa2b7e928
+		summarizeBy: none
+		sourceColumn: penalty_2024
+
+		annotation SummarizationSetBy = Automatic
+
+	column emissions_2030
+		dataType: double
+		formatString: #,0
+		lineageTag: 6373a152-a442-85f0-32ee-88e85ab3a81b
+		summarizeBy: none
+		sourceColumn: emissions_2030
+
+		annotation SummarizationSetBy = Automatic
+
+	column limit_2030
+		dataType: double
+		formatString: #,0
+		lineageTag: d7fd8deb-52e8-4352-f4ff-60682c1a49d1
+		summarizeBy: none
+		sourceColumn: limit_2030
+
+		annotation SummarizationSetBy = Automatic
+
+	column over_2030
+		dataType: double
+		formatString: #,0
+		lineageTag: 8ab1b6e8-2e20-0791-98b1-e4007001c2be
+		summarizeBy: none
+		sourceColumn: over_2030
+
+		annotation SummarizationSetBy = Automatic
+
+	column penalty_2030
+		dataType: double
+		formatString: $#,0
+		lineageTag: 84cf7262-78ee-ff05-56e9-3d87da7a374c
+		summarizeBy: none
+		sourceColumn: penalty_2030
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway
+		dataType: string
+		lineageTag: e00f7eb7-197c-effc-3b6b-1a3fe3576145
+		summarizeBy: none
+		sourceColumn: pathway
+
+		annotation SummarizationSetBy = Automatic
+
+	column check
+		dataType: string
+		lineageTag: 9a205d7d-dcaa-8c11-133d-948be52f3d4f
+		summarizeBy: none
+		sourceColumn: check
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_totals
+		dataType: boolean
+		lineageTag: 2fa303e2-6d4a-353f-d490-420a562ff038
+		summarizeBy: none
+		sourceColumn: in_totals
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Properties = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(GetFile("tables/properties.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Kept = Table.SelectColumns(Promoted, {"property_id", "property_name", "borough", "cd", "primary_property_type", "gfa_uses", "site_eui", "lat", "lng", "emissions_2024", "limit_2024", "over_2024", "penalty_2024", "emissions_2030", "limit_2030", "over_2030", "penalty_2030", "pathway", "check", "in_totals"}),
+				    Typed = Table.TransformColumnTypes(Kept, {{"property_id", type text}, {"property_name", type text}, {"borough", type text}, {"cd", type text}, {"primary_property_type", type text}, {"gfa_uses", type number}, {"site_eui", type number}, {"lat", type number}, {"lng", type number}, {"emissions_2024", type number}, {"limit_2024", type number}, {"over_2024", type number}, {"penalty_2024", type number}, {"emissions_2030", type number}, {"limit_2030", type number}, {"over_2030", type number}, {"penalty_2030", type number}, {"pathway", type text}, {"check", type text}, {"in_totals", type logical}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
