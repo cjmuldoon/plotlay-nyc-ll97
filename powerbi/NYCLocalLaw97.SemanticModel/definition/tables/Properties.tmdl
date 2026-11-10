@@ -2,9 +2,9 @@ table Properties
 	lineageTag: 9fc2d28c-05ed-9eb1-d75b-a4465abf15a9
 
 	/// Benchmarked properties in the totals: standard pathway (Article 320), data checks passed
-	measure Properties = CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE () )
+	measure 'Properties counted' = CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE () )
 		formatString: #,0
-		lineageTag: 4149ed25-690a-f170-64c2-106ac396365c
+		lineageTag: 94ef98a7-7403-47e3-3f8e-195c6f01e235
 
 	/// Properties whose emissions are over their limit in the period picked
 	measure 'Over the limit' =
@@ -13,7 +13,7 @@ table Properties
 		formatString: #,0
 		lineageTag: 5d55078e-cb46-66af-7b3f-f19e40a8fd05
 
-	measure 'Share over' = DIVIDE ( [Over the limit], [Properties] )
+	measure 'Share over' = DIVIDE ( [Over the limit], [Properties counted] )
 		formatString: 0.0%
 		lineageTag: 618b6fac-e553-db5e-c440-ac7b79b92391
 
