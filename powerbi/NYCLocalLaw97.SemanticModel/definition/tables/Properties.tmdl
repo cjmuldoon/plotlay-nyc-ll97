@@ -2,14 +2,14 @@ table Properties
 	lineageTag: 9fc2d28c-05ed-9eb1-d75b-a4465abf15a9
 
 	/// Benchmarked properties in the totals: standard pathway (Article 320), data checks passed
-	measure 'Properties counted' = CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE () )
+	measure 'Properties counted' = CALCULATE ( COUNTROWS ( 'Properties' ), 'Properties'[in_totals] = TRUE () )
 		formatString: #,0
 		lineageTag: 94ef98a7-7403-47e3-3f8e-195c6f01e235
 
 	/// Properties whose emissions are over their limit in the period picked
 	measure 'Over the limit' =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN CALCULATE ( COUNTROWS ( Properties ), Properties[in_totals] = TRUE (), IF ( p = "2030 to 2034", Properties[over_2030] > 0, Properties[over_2024] > 0 ) )
+			RETURN IF ( p = "2030 to 2034", CALCULATE ( COUNTROWS ( 'Properties' ), 'Properties'[in_totals] = TRUE (), 'Properties'[over_2030] > 0 ), CALCULATE ( COUNTROWS ( 'Properties' ), 'Properties'[in_totals] = TRUE (), 'Properties'[over_2024] > 0 ) )
 		formatString: #,0
 		lineageTag: 5d55078e-cb46-66af-7b3f-f19e40a8fd05
 
@@ -20,35 +20,35 @@ table Properties
 	/// Likely penalty a year: tonnes over the limit x $268 (Admin Code 28-320.6), on calendar 2024 energy use
 	measure 'Penalty a year' =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[penalty_2030] ), SUM ( Properties[penalty_2024] ) ), Properties[in_totals] = TRUE () )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( 'Properties'[penalty_2030] ), SUM ( 'Properties'[penalty_2024] ) ), 'Properties'[in_totals] = TRUE () )
 		formatString: $#,0
 		lineageTag: 8211d3da-9a79-2c10-5c0c-7dfd0abb5c86
 
 	/// tCO2e over the limit, added up
 	measure 'Tonnes over' =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[over_2030] ), SUM ( Properties[over_2024] ) ), Properties[in_totals] = TRUE () )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( 'Properties'[over_2030] ), SUM ( 'Properties'[over_2024] ) ), 'Properties'[in_totals] = TRUE () )
 		formatString: #,0
 		lineageTag: 1d10ad86-8564-9ae7-60cb-c4de7cc7da2e
 
 	/// tCO2e as Local Law 97 counts them, with the period's coefficients
 	measure Emissions =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[emissions_2030] ), SUM ( Properties[emissions_2024] ) ), Properties[in_totals] = TRUE () )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( 'Properties'[emissions_2030] ), SUM ( 'Properties'[emissions_2024] ) ), 'Properties'[in_totals] = TRUE () )
 		formatString: #,0
 		lineageTag: 96efe3e0-841d-b2cc-f929-da42233f3070
 
 	/// tCO2e: floor area of each use x the rule's factor
 	measure Limit =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( Properties[limit_2030] ), SUM ( Properties[limit_2024] ) ), Properties[in_totals] = TRUE () )
+			RETURN CALCULATE ( IF ( p = "2030 to 2034", SUM ( 'Properties'[limit_2030] ), SUM ( 'Properties'[limit_2024] ) ), 'Properties'[in_totals] = TRUE () )
 		formatString: #,0
 		lineageTag: 8e7af4ac-bae2-cedf-3ab1-33f9f50fdc25
 
 	/// Every kept record, whatever its pathway or data check
 	measure 'Penalty, every record' =
 			VAR p = SELECTEDVALUE ( Period[period], "2024 to 2029" )
-			RETURN IF ( p = "2030 to 2034", SUM ( Properties[penalty_2030] ), SUM ( Properties[penalty_2024] ) )
+			RETURN IF ( p = "2030 to 2034", SUM ( 'Properties'[penalty_2030] ), SUM ( 'Properties'[penalty_2024] ) )
 		formatString: $#,0
 		displayFolder: Sensitivity
 		lineageTag: 9941a306-3906-2ce5-9a84-22654ad7658f
