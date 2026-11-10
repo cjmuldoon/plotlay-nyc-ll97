@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "NYCLocalLaw97"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bf5970c6-ff0c-4d0b-a32f-29d6f5980189"
+  }
+}
